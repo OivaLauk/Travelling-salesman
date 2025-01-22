@@ -1,52 +1,52 @@
 {
-    "kaupungit": [
+    "cities": [
         {
-            "nimi": "Helsinki",
+            "name": "Helsinki",
             "latitude": 60.1699,
             "longitude": 24.9384
         },
         {
-            "nimi": "Espoo",
+            "name": "Espoo",
             "latitude": 60.2055,
             "longitude": 24.6559
         },
         {
-            "nimi": "Tampere",
+            "name": "Tampere",
             "latitude": 61.4982,
             "longitude": 23.7610
         },
         {
-            "nimi": "Turku",
+            "name": "Turku",
             "latitude": 60.4518,
             "longitude": 22.2666
         },
         {
-            "nimi": "Oulu",
+            "name": "Oulu",
             "latitude": 65.0121,
             "longitude": 25.4651
         },
         {
-            "nimi": "Jyväskylä",
+            "name": "Jyväskylä",
             "latitude": 62.2426,
             "longitude": 25.7475
         },
         {
-            "nimi": "Lahti",
+            "name": "Lahti",
             "latitude": 60.9827,
             "longitude": 25.6612
         },
         {
-            "nimi": "Kuopio",
+            "name": "Kuopio",
             "latitude": 62.8925,
             "longitude": 27.6770
         },
         {
-            "nimi": "Pori",
+            "name": "Pori",
             "latitude": 61.4840,
             "longitude": 21.7972
         },
         {
-            "nimi": "Lappeenranta",
+            "name": "Lappeenranta",
             "latitude": 61.0587,
             "longitude": 28.1887
         }

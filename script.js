@@ -8,32 +8,46 @@ fs.readFile('./kaupungit.json', function(err, data) {
 
     let distanceArr = [];
     let totalDistance = 0;
-    
+    /*
     setTimeout(() => {
         distanceArr.forEach((num) => totalDistance += num);
         console.log(totalDistance);
     }, 100);
-
+    */
     let currentCity = json.cities[0]
     let nextCity = json.cities[1]
 
+
+    //Function for moving between cities, helsinki => espoo, espoo => tampere etc.
     function moveCities(json) {
-        city1 = json.cities
-        city2 = json.cities
-        
-        for(let i = 1; i < json.name; i++){
-            city1 = json.cities[i-1]
-            city2 = json.cities[i]
+        let pairs = [];
+        for (let i = 1; i < json.cities.length; i++) {
+            let city1 = json.cities[i - 1];
+            let city2 = json.cities[i];
+            pairs.push([city1, city2]);
         }
-        return [city1, city2];
+        if (json.cities.length > 1) {
+            pairs.push([json.cities[json.cities.length - 1], json.cities[0]]);
+        }
+        return pairs;
     }
-    console.log(moveCities(json))
-    //console.log(calculateDistance(currentCity.name, nextCity.name, currentCity.latitude, nextCity.latitude, currentCity.longitude, nextCity. longitude))
+
+    
+    let cityPairs = moveCities(json);
+    
+
+cityPairs.forEach(pair => {
+  pair.forEach(city => {
+    //console.log(`Name: ${city.name}, Latitude: ${city.latitude}, Longitude: ${city.longitude}`);
+  });
+});
+    /*
+    console.log(calculateDistance(currentCity.name, nextCity.name, currentCity.latitude, nextCity.latitude, currentCity.longitude, nextCity. longitude))
     
     json.cities.forEach(el => {
         console.log(calculateDistance(currentCity.name, el.name, currentCity.latitude, el.latitude, currentCity.longitude, el. longitude))
     });
-    
+    */
     function calculateDistance(city1, city2, lat1, lat2, long1, long2) {
         const pi = Math.PI;
         const lat1Rad = lat1 * (pi/180);

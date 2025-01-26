@@ -1,5 +1,4 @@
 const fs = require('fs');
-let GeneticAlgorithmConstructor = require('geneticalgorithm')
 fs.readFile('./kaupungit.json', function(err, data) { 
     if (err) throw err; 
     const json = JSON.parse(data);
@@ -31,23 +30,15 @@ fs.readFile('./kaupungit.json', function(err, data) {
         }
         return pairs;
     }
-
-    
     let cityPairs = moveCities(json);
     
-
 cityPairs.forEach(pair => {
   pair.forEach(city => {
     //console.log(`Name: ${city.name}, Latitude: ${city.latitude}, Longitude: ${city.longitude}`);
   });
 });
-    /*
-    console.log(calculateDistance(currentCity.name, nextCity.name, currentCity.latitude, nextCity.latitude, currentCity.longitude, nextCity. longitude))
-    
-    json.cities.forEach(el => {
-        console.log(calculateDistance(currentCity.name, el.name, currentCity.latitude, el.latitude, currentCity.longitude, el. longitude))
-    });
-    */
+
+    //Funktio joka laskee kaupungin etäisyyden toiseen kaupunkiin käyttämällä haversine-kaavaa
     function calculateDistance(city1, city2, lat1, lat2, long1, long2) {
         const pi = Math.PI;
         const lat1Rad = lat1 * (pi/180);
@@ -67,19 +58,9 @@ cityPairs.forEach(pair => {
         const result = `The distance from: ${city1} to: ${city2} is ${x3} kilometers.`
         distanceArr.push(x3);
         return result;
-    }/*
-    let config = {
-        mutationFunction: aMutationFunctionYouSupply,
-        crossoverFunction: yourCrossoverFunction,
-        fitnessFunction: yourFitnessFunction,
-        doesABeatBFunction: yourCompetitionFunction,
-        population: [json.cities],
-        populationSize: 10
     }
-    let geneticalgorithm = GeneticAlgorithmConstructor( config )*/
-    
 }
 );
 
-//Käytin npm packagea: genetic algorithm
-//npm i geneticalgorithm
+//Käytin npm packagea: genetic
+//npm instaall genetic

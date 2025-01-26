@@ -61,6 +61,3 @@ cityPairs.forEach(pair => {
     }
 }
 );
-
-//Käytin npm packagea: genetic
-//npm instaall genetic

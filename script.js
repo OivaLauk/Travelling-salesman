@@ -1,21 +1,23 @@
 const fs = require('fs');
+const { inflate } = require('zlib');
 fs.readFile('./kaupungit.json', function(err, data) { 
     if (err) throw err; 
     const json = JSON.parse(data);
-
+    /*
     const start = json.cities[0];
     const others = json.cities.filter((city) => city.name != "Helsinki")
 
     others.forEach(city => {
         console.log(calculateDistance(start, city))
     });
+    */
 
     //Funktio joka laskee kaupungin etäisyyden toiseen kaupunkiin käyttämällä haversine-kaavaa
-    function calculateDistance(start, others) {
+    function calculateDistance(start, other) {
         const radius = 6371;
 
         const city1 = start;
-        const city2 = others;
+        const city2 = other;
 
         const pi = Math.PI;
         const lat1Rad = city1.latitude * (pi/180);
@@ -31,9 +33,39 @@ fs.readFile('./kaupungit.json', function(err, data) {
         const x2 = 2 * Math.atan2(Math.sqrt(x1), Math.sqrt(1 - x1));
         
         const x3 = Math.round(x2 * radius * 100) / 100;
-        
-        const result = `The distance from: ${city1.name} to: ${city2.name} is ${x3} kilometers.`
-        return result;
+        return x3;
     }
+
+const INF = Infinity;
+
+let tourDist = [];
+let matrix = [];
+let rows = 10;
+let columns = 10;
+
+for (let i = 0; i < rows; i++) {
+    matrix[i] = [];
+    for (let j = 0; j < columns; j++) {
+        const a = json.cities[j];
+        const b = json.cities[i];
+        matrix[i][j] = calculateDistance(a, b);
+    }
+}
+
+function rowSum(arr) {
+    for (let i = 0; i < rows; ++i) {
+        let rowSum = 0;
+        for (let j = 0; j < columns; ++j) {
+            rowSum += arr[i][j];
+        }
+        tourDist.push(Math.round(rowSum * 100) / 100);
+        matrix[i][i] = INF
+    }
+    return tourDist;
+}
+
+rowSum(matrix);
+console.log(tourDist, matrix);
+
 }
 );

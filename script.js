@@ -3,14 +3,6 @@ const { inflate } = require('zlib');
 fs.readFile('./kaupungit.json', function(err, data) { 
     if (err) throw err; 
     const json = JSON.parse(data);
-    /*
-    const start = json.cities[0];
-    const others = json.cities.filter((city) => city.name != "Helsinki")
-
-    others.forEach(city => {
-        console.log(calculateDistance(start, city))
-    });
-    */
 
     //Funktio joka laskee kaupungin etäisyyden toiseen kaupunkiin käyttämällä haversine-kaavaa
     function calculateDistance(start, other) {

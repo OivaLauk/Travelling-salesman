@@ -55,9 +55,7 @@ function rowSum(arr) {
     }
     return tourDist;
 }
-
 rowSum(matrix);
-console.log(tourDist, matrix);
 
 }
 );

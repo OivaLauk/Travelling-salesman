@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { writeFile } = require('fs/promises');
 fs.readFile('./kaupungit.json', function(err, data) { 
     if (err) throw err; 
     const json = JSON.parse(data);
@@ -86,5 +85,4 @@ const resultPath = shortestPathNames.join(" => ")
 console.log(`\n${resultPath}\n`)
 console.log(`Lyhyin reitti on ${result}km pitkä.\n`);
 
-}
-);
+});

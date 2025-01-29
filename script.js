@@ -27,10 +27,10 @@ fs.readFile('./kaupungit.json', function(err, data) {
         const x3 = Math.round(x2 * radius * 100) / 100;
         return x3;
     }
-
+//Matriisi jossa on jokaisen kaupungin etäisyys muihin kaupunkeihin.
 let matrix = [];
-let rows = 10;
-let columns = 10;
+const rows = 10;
+const columns = 10;
 
 for (let i = 0; i < rows; i++) {
     matrix[i] = [];
@@ -40,42 +40,51 @@ for (let i = 0; i < rows; i++) {
         matrix[i][j] = calculateDistance(a, b);
     }
 }
-
-
+//"If visited" array jota käytän TSP:n funktiossa joka näyttää onko kaupungissa käyty vielä.
 let boolArr = [false, false, false, false, false, false, false, false, false, false];
-let shortestDistance = Infinity;
-let fullPath = [];
 
-//Brute-force algorithmi TSP:n ratkaisemiseen
-function TSP(matrix, v, currPos, n, count, cost) {
-    
+let shortestPath = [];
+let fullPath = [];
+let shortestPathNames = [];
+let shortestDistance = Infinity;
+
+//Brute-force algorithmi TSP:n ratkaisemiseen, ja sen reitin selvittämiseen.
+function TSP(matrix, ifVisited, currPos, n, count, cost, path) {
+
     if (count == n && matrix[currPos][0]) {
-        if(cost + matrix[currPos][0] < shortestDistance) {
-            shortestDistance = Math.min(shortestDistance, cost + matrix[currPos][0]);
+        cost += matrix[currPos][0];
+        if (cost < shortestDistance) {
+            shortestDistance = cost;
+
+            shortestPath = path.slice();
+            shortestPath.push(0);
         }
     }
     
     for (let i = 0; i < n; i++) {
-        if (!v[i] && matrix[currPos][i]) {
-            fullPath.push(json.cities[i].name)
-            v[i] = true;
-            TSP(matrix, v.clone(), i, n, count + 1, cost + matrix[currPos][i]);
-
-            v[i] = false;
+        if (!ifVisited[i] && matrix[currPos][i]) {
+            ifVisited[i] = true;
+            path.push(i);
+            TSP(matrix, ifVisited, i, n, count + 1, cost + matrix[currPos][i], path);
+            path.pop();
+            ifVisited[i] = false;
         }
     }
     return shortestDistance;
 }
-
 Array.prototype.clone = function() {
     return this.slice(0);
 };
 
-const result = Math.round(TSP(matrix, boolArr, 0, 10, 0, 0) * 100) / 100;
+const result = Math.round(TSP(matrix, boolArr, 1, 10, 0, 0, fullPath) * 100) / 100;
 
-console.log(fullPath)
+for(let index of shortestPath) {
+    shortestPathNames.push(json.cities[index].name);
+}
+const resultPath = shortestPathNames.join(" => ")
 
-console.log(`Lyhyin reitti on ${result}km pitkä.`);
+console.log(`\n${resultPath}\n`)
+console.log(`Lyhyin reitti on ${result}km pitkä.\n`);
 
 }
 );

@@ -49,23 +49,23 @@ let shortestPathNames = [];
 let shortestDistance = Infinity;
 
 //Brute-force algorithmi TSP:n ratkaisemiseen, ja sen reitin selvittämiseen.
-function TSP(matrix, ifVisited, currPos, n, count, cost, path) {
+function TSP(matrix, ifVisited, currPos, nodes, count, distance, path) {
 
-    if (count == n && matrix[currPos][0]) {
-        cost += matrix[currPos][0];
-        if (cost < shortestDistance) {
-            shortestDistance = cost;
+    if (count == nodes && matrix[currPos][0]) {
+        distance += matrix[currPos][0];
+        if (distance < shortestDistance) {
+            shortestDistance = distance;
 
             shortestPath = path.slice();
             shortestPath.push(0);
         }
     }
     
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < nodes; i++) {
         if (!ifVisited[i] && matrix[currPos][i]) {
             ifVisited[i] = true;
             path.push(i);
-            TSP(matrix, ifVisited, i, n, count + 1, cost + matrix[currPos][i], path);
+            TSP(matrix, ifVisited, i, nodes, count + 1, distance + matrix[currPos][i], path);
             path.pop();
             ifVisited[i] = false;
         }
